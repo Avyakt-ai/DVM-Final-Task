@@ -1,0 +1,36 @@
+{% extends 'passengers/base.html' %}
+{% block title %}Passenger Dashboard{% endblock %}
+{% block content %}
+<style>
+    /*.well {*/
+    /*    padding-left: 40px;*/
+    /*    padding-right: 40px;*/
+    /*}*/
+</style>
+<br>
+<br>
+
+<div class="well text-center">
+    <h2><strong>ACCOUNT DETAILS</strong></h2>
+    <p>NAME: {{user}}</p>
+    <p>EMAIL: {{user.email}}</p>
+    <p>WALLET AMOUNT: ₹{{user.passengerprofile.wallet_balance}}</p>
+</div>
+{% for message in messages %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endfor %}
+<button type="button" data-toggle="collapse" data-target="#demo">Add Money</button>
+<div id="demo" class="collapse">
+    <div class="well">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ add_money_form }}
+            <button type="submit" onclick="return confirm('Are you sure you want to add the money to your Account')">
+                Add Money
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
